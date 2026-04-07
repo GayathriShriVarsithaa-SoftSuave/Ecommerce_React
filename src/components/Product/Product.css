@@ -1,0 +1,36 @@
+.prodbody{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 20px;
+}
+.prodbody .prodimage{
+    height: auto;
+    width: 50%;
+}
+.prodbody .prodimage .prodimages{
+    height: 100%;
+    width: 100%;
+}
+.prodbody .proddetails{
+    width: 40%;
+}
+
+.prodbody .proddetails .prodes{
+    text-align: justify;
+    text-indent: 10px;
+}
+.prodbody .proddetails .prodcate{
+    color: rgb(116, 42, 165);
+    font-weight: 400;
+
+}
+.prodbody .proddetails .cart{
+    background-color: blue;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
