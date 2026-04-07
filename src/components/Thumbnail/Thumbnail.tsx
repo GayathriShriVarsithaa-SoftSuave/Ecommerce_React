@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 const Thumbnail=({id,imgval,title,price,des})=>{
     const navigate = useNavigate();
 
-    const description=des.length>90?des.substring(0,90)+"...":des;
+    const description:string=des.length>90?des.substring(0,90)+"...":des;
     const gotoprod=(id:string)=>{
     navigate(`/product/${id}`);
     }
@@ -16,7 +16,6 @@ const Thumbnail=({id,imgval,title,price,des})=>{
         </div>
         <p className='desc'>{description}</p>
         <button className='addtocart'>Add to Cart</button>
-
     </div>);
 
 }
