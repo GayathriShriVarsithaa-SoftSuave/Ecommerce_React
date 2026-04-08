@@ -2,7 +2,7 @@
   display: grid;
   grid-template-columns: auto auto auto auto;
   gap: 30px;
-  width: 100%;
+  width: 95%;
 }
 .prodhead {
   margin-bottom: 10px;

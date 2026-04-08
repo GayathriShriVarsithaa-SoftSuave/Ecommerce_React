@@ -28,5 +28,5 @@ const cartitemSlice = createSlice({name:"cartitem",initialState,reducers: {
         delete state.cartitems[action.payload];
     }
 }});
-export const { addCartItem, deleteCartItem } = cartitemSlice.actions;
+export const { addCartItem, deleteCartItem} = cartitemSlice.actions;
 export default cartitemSlice.reducer;

@@ -7,6 +7,7 @@ import { Drawer, TextField} from '@mui/material';
 import { useEffect,useState } from 'react';
 import Item from '../Item/Item';
 import { useSelector} from 'react-redux';
+import type { RootState } from '../../app/store';
 const Home=()=>{
     const fetchdata=()=>{
         fetch('https://dummyjson.com/products')
@@ -22,7 +23,7 @@ const Home=()=>{
     useEffect(()=>{
         fetchdata();
     },[])
-    const cartitems=useSelector((state:any)=>state.cartitem.cartitems);
+    const { cartitems } = useSelector((state: RootState) => state.cartitem);
     return(
         <div>
             
