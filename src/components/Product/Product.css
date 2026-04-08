@@ -6,7 +6,7 @@
     margin-top: 20px;
 }
 .prodbody .prodimage{
-    height: auto;
+    height: 500px;
     width: 50%;
 }
 .prodbody .prodimage .prodimages{
@@ -26,11 +26,58 @@
     font-weight: 400;
 
 }
-.prodbody .proddetails .cart{
-    background-color: blue;
+.cart{
+  border-radius: 30px;
+  margin-left:85%;
+  background-color: #02e7d0;
+  padding: 10px;
+  font-size: medium;
+  font-weight: 500;
+  border: 0px;
+  cursor: pointer;
+}
+.cart:hover {
+  background-color: #26a69a;
+}
+.cart:active{
+    background-color: #0ef0da;  
+}
+.btns{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 20px;
+}
+.btns .deletebtn{
+    border-radius: 30px;
+    background-color: #ff1744;
+    padding: 10px;
+    font-size: medium;
+    font-weight: 500;
     color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
+    border: 0px;
     cursor: pointer;
+}
+.btns .updatebtn{
+    border-radius: 30px;
+    background-color: #02e7d0;
+    color: black;
+    padding: 10px;
+    font-size: medium;
+    font-weight: 500;
+    border: 0px;
+    cursor: pointer;
+}
+.btns .deletebtn:hover {
+    background-color: #ff5252;
+}
+.btns .deletebtn:active{
+    background-color: #ff1744;
+}
+.btns .updatebtn:hover {
+    background-color: #26a69a;
+}
+.btns .updatebtn:active{
+    background-color: #0ef0da;  
 }
