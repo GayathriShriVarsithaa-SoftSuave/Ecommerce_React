@@ -12,13 +12,15 @@
     background-color: #E8E5E0;
 }
 .thumbnailbody:hover{
-   transform: scale(1.04);
    cursor: pointer;
 }
 .thumbimg{
     height:250px;
     width: 100%;
     border-radius: 5%;
+}
+.thumbimg:hover{
+    transform: scale(1.05);
 }
 .titleprice{
     display: flex;

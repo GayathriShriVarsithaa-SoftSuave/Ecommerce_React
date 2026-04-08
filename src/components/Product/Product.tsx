@@ -18,9 +18,41 @@ import type {RootState} from '../../app/store'
 type Props={
     id:string
 }
+interface Dimension{
+    width:number,
+    height:number,
+    depth:number
+}
+interface Review{
+    rating:number,
+    comment:string,
+    date:string,
+    reviewerName:string,
+    reviewerEmail:string
+}
+interface Meta{
+    createdAt:string,
+    updatedAt:string,
+    barcode:string,
+    qrCode:string
+}
 interface ProductData{
     title:string,
     price:number,
+    discountPercentage:number,
+    rating:number,
+    stock:number,
+    tags:string[],
+    brand:string,
+    weight:number,
+    dimensions:Dimension,
+    warrantyInformation:string,
+    shippingInformation:string,
+    availabilityStatus:string,
+    reviews:Review[],
+    returnPolicy:string,
+    minimumOrderQuantity:number,
+    meta:Meta,
     description:string,
     category:string,
     images:string[]
@@ -48,6 +80,7 @@ const Product=()=>{
         })
         .then(res=>res.json())
         .then(()=>alert('Product Deleted'))
+        .then(()=>{navigate('/')})
         .catch(err=>alert(err))
     };
     const [diaopen,setDiaOpen]=useState(false)
@@ -82,21 +115,74 @@ const Product=()=>{
         <div>
             <ArrowBackIcon className='backicon' onClick={backfun}/>
             <button className='cart' onClick={addcart}>Add to Cart</button>
+            <h1>{data?.title}</h1>
+            <h3>Price: ${data?.price}</h3>
+            <p>Actual Price: <span style={{textDecoration:"line-through"}}>${data?.discountPercentage}</span></p>
             <div className='prodbody'>
                 <div className='prodimage'>
                     <img src={data?.images?.[0]} alt='prod img' className='prodimages'/>
                 </div>
                 <div className='proddetails'>
-                    <h1>{data?.title}</h1>
-                    <h3>${data?.price}</h3>
+                    <p className='prodcate'>CATEGORY :{data?.category.toUpperCase()}</p>
+                    <p>Description:</p>
                     <p className='prodes'>{data?.description}</p>
-                    <p className='prodcate'>Category :{data?.category}</p>
+                    <p>Rating: {data?.rating}</p>
+                    <p>Stock: {data?.stock}</p>
+                    <div>
+                        <p>Tags:</p>
+                        {data?.tags?.map((tag)=>
+                        <span>{tag} </span>
+                        )} 
+                    </div>
+                    <p>Brand: {data?.brand}</p>
+                    <p>Weight: {data?.weight}g</p>
+                    <div>
+                        <p>Dimensions:</p>
+                        <p>Width: {data?.dimensions?.width}</p>
+                        <p>Height: {data?.dimensions?.height}</p>
+                        <p>Depth: {data?.dimensions?.depth}</p>
+                        
+                    </div>
+                    <p>Warranty: {data?.warrantyInformation}</p>
+                    <p>Shipping: {data?.shippingInformation}</p>
+                    <p>Availability: {data?.availabilityStatus}</p>
+                    <div>
+                        <p>Reviews:</p>
+                        <table>
+                        {
+                            data?.reviews?.map((review)=>
+                            <tr><td>
+                            <div>
+                                <p>Rating: {review.rating}</p>
+                                <p>Comment: {review.comment}</p>
+                                <p>Date: {review.date}</p>
+                                <p>ReviewerName: {review.reviewerName}</p>
+                                <p>ReviewerMail: {review.reviewerEmail}</p>
+                            </div>
+                            </td>
+                            </tr>)
+                        }
+                        </table>
+                    </div>
+                    <p>Return Policy: {data?.returnPolicy}</p>
+                    <p>Minimum Order Quantity: {data?.minimumOrderQuantity}</p>
+                    <div>
+                        <p>Meta Data:</p>
+                        <p>Created At: {data?.meta?.createdAt}</p>
+                        <p>Updated At: {data?.meta?.updatedAt}</p>
+                        <p>Barcode: {data?.meta?.barcode}</p>
+                        <p>qrCode:</p>
+                        <img src={data?.meta?.qrCode} style={{height:'50px', width:'50px'}} alt='qrcode'/>
+                        
+                    </div>
+                    <div className='btns'>
+                        <Button variant="contained"  className='deletebtn' onClick={delprod}>Delete</Button>
+                        <Button variant="contained" className='updatebtn' onClick={()=>{setDiaOpen(true);setTitle(data?.title);setPrice(data?.price);setCategory(data?.category);setDes(data?.description)}}>Update</Button>
+                    </div>
                 </div>
+
             </div>
-            <div className='btns'>
-                <Button variant="contained"  className='deletebtn' onClick={delprod}>Delete</Button>
-                <Button variant="contained" className='updatebtn' onClick={()=>{setDiaOpen(true);setTitle(data?.title);setPrice(data?.price);setCategory(data?.category);setDes(data?.description)}}>Update</Button>
-            </div>
+            
             
             <Drawer
                 anchor="right"
@@ -146,7 +232,7 @@ const Product=()=>{
                         onChange={(e)=>setPrice(Number(e.target.value))}/><br/>
                         <p>Description</p>
                         <Textarea 
-                        value={des}
+                        value={des}maxRows={5}
                         onChange={(e)=>setDes(e.target.value)}
                         />
                     </form>

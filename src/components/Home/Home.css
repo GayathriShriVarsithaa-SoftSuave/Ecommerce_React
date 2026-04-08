@@ -4,6 +4,13 @@
   gap: 30px;
   width: 95%;
 }
+.homehead{
+  position: sticky;
+  top:0;
+  background-color: whitesmoke;
+  padding-bottom: 10px;
+  overflow-y: 20%;
+}
 .prodhead {
   margin-bottom: 10px;
   display: flex;

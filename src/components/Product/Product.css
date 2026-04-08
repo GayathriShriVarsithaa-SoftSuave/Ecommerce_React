@@ -81,3 +81,15 @@
 .btns .updatebtn:active{
     background-color: #0ef0da;  
 }
+@media screen and (max-width:800px){
+    .prodbody{
+        flex-direction: column;
+    }
+    .prodbody .proddetails{
+    width: 100%;
+}
+.prodbody .prodimage{
+    height: 500px;
+    width: 100%;
+}
+}
