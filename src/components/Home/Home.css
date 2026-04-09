@@ -53,6 +53,15 @@
 .addbtn:active{
     background-color: #0ef0da;  
 }
+.page{
+  position: sticky;
+  bottom: 0;
+  background-color:whitesmoke;
+  width: 100%;
+}
+.page .MuiTablePagination-root {
+    width: 100%;
+}
 @media screen and (max-width: 800px) {
   .homeitems {
     grid-template-columns: auto auto;

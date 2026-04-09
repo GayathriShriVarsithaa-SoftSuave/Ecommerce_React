@@ -16,7 +16,24 @@ import {DialogTitle} from '@mui/material';
 import Textarea from '@mui/joy/Textarea';
 import Radio from '@mui/joy/Radio';
 import RadioGroup from '@mui/joy/RadioGroup';
+import {TablePagination} from '@mui/material';
 const Home=()=>{
+    const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+
+  const handleChangePage = (
+    event: React.MouseEvent<HTMLButtonElement> | null,
+    newPage: number,
+  ) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
     const fetchdata=()=>{
         fetch('https://dummyjson.com/products')
         .then(res=>res.json())
@@ -172,11 +189,24 @@ const Home=()=>{
 
 
             <div className='homeitems'>
-                {data.map((item)=>
+                {data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item)=>
                     <Thumbnail id={item?.id} imgval={item?.thumbnail} title={item?.title} price={"$"+item?.price} des={item?.description}/>
                 )}
             </div>
-
+            <div className='page'>
+                <TablePagination
+                    sx={{
+                        width: '100%',
+                        display: 'flex',
+                        justifyContent: 'center'
+                    }}
+                    count={data.length}
+                    page={page}
+                    onPageChange={handleChangePage}
+                    rowsPerPage={rowsPerPage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                />  
+            </div>
         </div>
 );
 }
