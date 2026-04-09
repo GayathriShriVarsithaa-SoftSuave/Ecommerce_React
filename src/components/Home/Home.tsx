@@ -151,6 +151,10 @@ const Home=()=>{
                                 <Item title={cartitems[key].title} price={cartitems[key].price} img={cartitems[key].imgval} id={key}/>
                             </div>
                         ))
+                        
+                    }
+                    {
+                        Object.keys(cartitems).length!=0 && (<Button variant="contained" color="secondary" sx={{ml:'10px'}}>Proceed to Buy</Button>)
                     }
                 </div>
             </Drawer>
@@ -196,7 +200,6 @@ const Home=()=>{
             <div className='page'>
                 <TablePagination
                     sx={{
-                        width: '100%',
                         display: 'flex',
                         justifyContent: 'center'
                     }}

@@ -306,7 +306,7 @@ const Product=()=>{
                         required
                         margin="dense"
                         variant="standard"
-                        inputProps={{ min: 1, max: 5 }} 
+                        inputProps={{ min: 1.0, max: 5.0, step:0.01}} 
                         value={rating}
                         label='Rating'
                         type='Number'
