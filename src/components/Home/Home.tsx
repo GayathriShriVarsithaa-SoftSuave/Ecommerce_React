@@ -41,8 +41,8 @@ const Home=()=>{
         .then(data=>setData(data.products))
         .catch(err=>alert(err))
     }
-
     const [data,setData]=useState([]);
+    const [searchtxt,setSearchTxt]=useState('');
 
     const [opendrawer,setOpenDrawer]=useState(false);
     const [opendia,setOpenDia]=useState(false);
@@ -56,6 +56,18 @@ const Home=()=>{
     const[imgurl,setImgUrl]=useState("");
     const[rating,setRating]=useState(0);
     
+
+    const searchData=(searchtxt:string)=>{
+        if(searchtxt==='')
+        {
+            fetchdata();
+            return;
+        }
+        fetch(`https://dummyjson.com/products/search?q=${searchtxt}`)
+        .then(res=>res.json())
+        .then((data)=>{setData(data.products);setPage(0)})
+        .catch((e)=>alert(e.message))
+    }
 
 
     const addproduct=(e: React.FormEvent<HTMLFormElement>)=>{
@@ -105,6 +117,8 @@ const Home=()=>{
 
 
                 <TextField id="prodsearch" placeholder="Search Products.." variant="outlined" size='small' className='searchbar'
+                onChange={(e)=>{setSearchTxt(e.target.value);searchData(searchtxt)}}
+                
                 sx={
                     {
                         '& .MuiOutlinedInput-root': {
