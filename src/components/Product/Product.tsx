@@ -64,7 +64,18 @@ const Product=()=>{
     const fetchdata=()=>{
         fetch(`https://dummyjson.com/products/${id}`)
         .then(res=>res.json())
-        .then(data=>setData(data))
+        .then((data) => {
+            setData(data);
+            setTitle(data.title);
+            setCategory(data.category);
+            setPrice(data.price);
+            setActualPrice(data.discountPercentage);
+            setDes(data.description);
+            setRating(data.rating);
+            setBrand(data.brand);
+            setWeight(data.weight);
+            setMinOrder(data.minimumOrderQuantity)
+        })
         .catch(err=>alert(err))
     }
     useEffect(()=>{
@@ -94,12 +105,13 @@ const Product=()=>{
     const [des,setDes]=useState('');
     const [category,setCategory]=useState('');
     const [actualprice,setActualPrice]=useState(0.0);
-    const [rating,setRating]=useState(0);
+    const [rating,setRating]=useState(0.0);
     const [brand,setBrand]=useState("");
     const [weight,setWeight]=useState(0);
     const [minorder,setMinOrder]=useState(0);
 
-    const updateprod=()=>{
+    const updateprod=(e: React.FormEvent<HTMLFormElement>)=>{
+        e.preventDefault();
         fetch(`https://dummyjson.com/products/${id}`,{
             method:'PATCH',
             headers:{'Content-Type': 'application/json'},
@@ -125,23 +137,23 @@ const Product=()=>{
         <div>
             <ArrowBackIcon className='backicon' onClick={backfun}/>
             <button className='cart' onClick={addcart}>Add to Cart</button>
-            <h1>{data?.title}</h1>
+            <h1>{title}</h1>
             <p className='destxt'>Description:</p>
-            <p className='prodes'>{data?.description}</p>
+            <p className='prodes'>{des}</p>
 
             
             <div className='prodbody'>
                 <div className='prodimage'>
                     <img src={data?.images?.[0]} alt='prod img' className='prodimages'/>
                     <div className='pricebody'>
-                        <h3>Price: ${data?.price}</h3>
-                        <p>Actual Price: <span style={{textDecoration:"line-through"}}>${data?.discountPercentage}</span></p>
+                        <h3>Price: ${price}</h3>
+                        <p>Actual Price: <span style={{textDecoration:"line-through"}}>${actualprice}</span></p>
                     </div>
                 </div>
 
                 <div className='proddetails'>
-                    <p><span className='txttitle'>Category : </span>{data?.category}</p>
-                    <p><span className='txttitle'>Rating : </span>{data?.rating}</p>
+                    <p><span className='txttitle'>Category : </span>{category}</p>
+                    <p><span className='txttitle'>Rating : </span>{rating}</p>
                     <p><span className='txttitle'>Stock : </span>{data?.stock}</p>
                     <div>
                         <p className='txttitle'>Tags:</p>
@@ -151,8 +163,8 @@ const Product=()=>{
                         )} 
                         </ul>
                     </div>
-                    <p><span className='txttitle'>Brand : </span>{data?.brand}</p>
-                    <p><span className='txttitle'>Weight : </span>{data?.weight} g</p>
+                    <p><span className='txttitle'>Brand : </span>{brand}</p>
+                    <p><span className='txttitle'>Weight : </span>{weight} g</p>
                 </div>
                 
             </div>
@@ -216,8 +228,8 @@ const Product=()=>{
 
             <div className='btns'>
                 <Button variant="contained"  className='deletebtn' onClick={delprod}>Delete</Button>
-                <Button variant="contained" className='updatebtn' onClick={()=>{setDiaOpen(true);setTitle(data?.title);setPrice(data?.price);setCategory(data?.category);setDes(data?.description);
-                    setActualPrice(data?.discountPercentage);setBrand(data?.brand);setRating(data?.rating);setWeight(data?.weight);setMinOrder(data?.minimumOrderQuantity);
+                <Button variant="contained" className='updatebtn' onClick={()=>{setDiaOpen(true);setTitle(title);setPrice(price);setCategory(category);setDes(des);
+                    setActualPrice(actualprice);setBrand(brand);setRating(rating);setWeight(weight);setMinOrder(minorder);
                 }}>Update</Button>
             </div>
             
@@ -247,32 +259,36 @@ const Product=()=>{
                 <DialogTitle>Edit product details</DialogTitle>
                 <DialogContent>
                     <DialogContentText>Edit the product details below</DialogContentText>
-                    <form id="editform">
+                    <form id="editform" onSubmit={updateprod}>
                         <TextField 
-                            sx={{ width: '400px' }}
+                            sx={{ width: '100%' }}
                         variant="standard"
                         value={title}
+                        required
                         label='Title'
                         margin="dense"
                         onChange={(e)=>setTitle(e.target.value)}
                         /><br></br>
                         <TextField 
-                            sx={{ width: '400px' }}
+                            sx={{ width: '100%' }}
                             margin="dense"
+                            required
                          variant="standard"
                         value={category}
                         label='Category'
                         onChange={(e)=>setCategory(e.target.value)}/><br />
                         <TextField 
-                            sx={{ width: '400px' }}
+                            sx={{ width: '100%' }}
                             margin="dense"
                         variant="standard"
+                        required
                         value={price}
                         label='Price'
                         onChange={(e)=>setPrice(Number(e.target.value))}/><br/>
                         <TextField
-                        sx={{width:'400px'}}
+                        sx={{width:'100%'}}
                         margin="dense"
+                        required
                         variant="standard"
                         value={actualprice}
                         label='Actual Price'
@@ -282,9 +298,12 @@ const Product=()=>{
                         <Textarea 
                         value={des}maxRows={5}
                         onChange={(e)=>setDes(e.target.value)}
+                        sx={{width:'100%'}}
+                        required
                         />
                         <TextField
-                        sx={{width:'400px'}}
+                        sx={{width:'100%'}}
+                        required
                         margin="dense"
                         variant="standard"
                         inputProps={{ min: 1, max: 5 }} 
@@ -294,16 +313,18 @@ const Product=()=>{
                         onChange={(e)=>setRating(Number(e.target.value))}
                         />
                         <TextField
-                        sx={{width:'400px'}}
+                        sx={{width:'100%'}}
                         margin="dense"
                         variant="standard"
+                        required
                         value={brand}
                         label="Brand"
                         onChange={(e)=>setBrand(e.target.value)}
                         />
                         <TextField
-                        sx={{width:'400px'}}
+                        sx={{width:'100%'}}
                         margin="dense"
+                        required
                         variant="standard"
                         value={weight}
                         label="Weight"
@@ -311,7 +332,7 @@ const Product=()=>{
                         onChange={(e)=>setWeight(Number(e.target.value))}
                         />
                          <TextField
-                        sx={{width:'400px'}}
+                        sx={{width:'100%'}}
                         margin="dense"
                         value={minorder}
                         label="Minimum Order"
@@ -325,7 +346,7 @@ const Product=()=>{
                     </form>
                 </DialogContent>
                 <DialogActions>
-                    <Button form="editform" onClick={updateprod}>Edit</Button>
+                    <Button form="editform" type='submit'>Edit</Button>
                 </DialogActions>
             </Dialog>
 
