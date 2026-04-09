@@ -128,8 +128,9 @@ const Product=()=>{
         })
         })
         .then(()=>alert("Updated"))
+        .then(()=>setDiaOpen(false))
         .catch((e)=>alert(e.message))   
-        setDiaOpen(false);
+        
     }
     const { cartitems } = useSelector((state: RootState) => state.cartitem);
 

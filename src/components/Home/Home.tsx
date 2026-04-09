@@ -78,6 +78,7 @@ const Home=()=>{
             })
         })
         .then(()=>alert("Product added!"))
+        .then(()=>setOpenDia(false))
         .catch((e)=>alert(e.message))
     }
 
