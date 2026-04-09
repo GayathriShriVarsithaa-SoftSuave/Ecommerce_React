@@ -93,6 +93,11 @@ const Product=()=>{
     const [price,setPrice]=useState(0.0);
     const [des,setDes]=useState('');
     const [category,setCategory]=useState('');
+    const [actualprice,setActualPrice]=useState(0.0);
+    const [rating,setRating]=useState(0);
+    const [brand,setBrand]=useState("");
+    const [weight,setWeight]=useState(0);
+    const [minorder,setMinOrder]=useState(0);
 
     const updateprod=()=>{
         fetch(`https://dummyjson.com/products/${id}`,{
@@ -102,7 +107,12 @@ const Product=()=>{
             title:title,
             category:category,
             price:price,
-            description: des
+            description: des,
+            discountPercentage:actualprice,
+            rating:rating,
+            brand:brand,
+            weight:weight,
+            minimumOrderQuantity:minorder
         })
         })
         .then(()=>alert("Updated"))
@@ -116,91 +126,121 @@ const Product=()=>{
             <ArrowBackIcon className='backicon' onClick={backfun}/>
             <button className='cart' onClick={addcart}>Add to Cart</button>
             <h1>{data?.title}</h1>
-            <h3>Price: ${data?.price}</h3>
-            <p>Actual Price: <span style={{textDecoration:"line-through"}}>${data?.discountPercentage}</span></p>
+            <p className='destxt'>Description:</p>
+            <p className='prodes'>{data?.description}</p>
+
+            
             <div className='prodbody'>
                 <div className='prodimage'>
                     <img src={data?.images?.[0]} alt='prod img' className='prodimages'/>
-                </div>
-                <div className='proddetails'>
-                    <p className='prodcate'>CATEGORY :{data?.category.toUpperCase()}</p>
-                    <p>Description:</p>
-                    <p className='prodes'>{data?.description}</p>
-                    <p>Rating: {data?.rating}</p>
-                    <p>Stock: {data?.stock}</p>
-                    <div>
-                        <p>Tags:</p>
-                        {data?.tags?.map((tag)=>
-                        <span>{tag} </span>
-                        )} 
-                    </div>
-                    <p>Brand: {data?.brand}</p>
-                    <p>Weight: {data?.weight}g</p>
-                    <div>
-                        <p>Dimensions:</p>
-                        <p>Width: {data?.dimensions?.width}</p>
-                        <p>Height: {data?.dimensions?.height}</p>
-                        <p>Depth: {data?.dimensions?.depth}</p>
-                        
-                    </div>
-                    <p>Warranty: {data?.warrantyInformation}</p>
-                    <p>Shipping: {data?.shippingInformation}</p>
-                    <p>Availability: {data?.availabilityStatus}</p>
-                    <div>
-                        <p>Reviews:</p>
-                        <table>
-                        {
-                            data?.reviews?.map((review)=>
-                            <tr><td>
-                            <div>
-                                <p>Rating: {review.rating}</p>
-                                <p>Comment: {review.comment}</p>
-                                <p>Date: {review.date}</p>
-                                <p>ReviewerName: {review.reviewerName}</p>
-                                <p>ReviewerMail: {review.reviewerEmail}</p>
-                            </div>
-                            </td>
-                            </tr>)
-                        }
-                        </table>
-                    </div>
-                    <p>Return Policy: {data?.returnPolicy}</p>
-                    <p>Minimum Order Quantity: {data?.minimumOrderQuantity}</p>
-                    <div>
-                        <p>Meta Data:</p>
-                        <p>Created At: {data?.meta?.createdAt}</p>
-                        <p>Updated At: {data?.meta?.updatedAt}</p>
-                        <p>Barcode: {data?.meta?.barcode}</p>
-                        <p>qrCode:</p>
-                        <img src={data?.meta?.qrCode} style={{height:'50px', width:'50px'}} alt='qrcode'/>
-                        
-                    </div>
-                    <div className='btns'>
-                        <Button variant="contained"  className='deletebtn' onClick={delprod}>Delete</Button>
-                        <Button variant="contained" className='updatebtn' onClick={()=>{setDiaOpen(true);setTitle(data?.title);setPrice(data?.price);setCategory(data?.category);setDes(data?.description)}}>Update</Button>
+                    <div className='pricebody'>
+                        <h3>Price: ${data?.price}</h3>
+                        <p>Actual Price: <span style={{textDecoration:"line-through"}}>${data?.discountPercentage}</span></p>
                     </div>
                 </div>
 
+                <div className='proddetails'>
+                    <p><span className='txttitle'>Category : </span>{data?.category}</p>
+                    <p><span className='txttitle'>Rating : </span>{data?.rating}</p>
+                    <p><span className='txttitle'>Stock : </span>{data?.stock}</p>
+                    <div>
+                        <p className='txttitle'>Tags:</p>
+                        <ul>
+                        {data?.tags?.map((tag)=>
+                        <li><span>{tag}</span></li>
+                        )} 
+                        </ul>
+                    </div>
+                    <p><span className='txttitle'>Brand : </span>{data?.brand}</p>
+                    <p><span className='txttitle'>Weight : </span>{data?.weight} g</p>
+                </div>
+                
+            </div>
+
+
+            <div className='body2'>
+
+                <div>
+                    
+                    <p className='destxt'>Dimensions:</p>
+                    <ul>
+                    <li><span className='txttitle'>Width : </span>{data?.dimensions?.width}</li><br />
+                    <li><span className='txttitle'>Height : </span>{data?.dimensions?.height}</li><br/>
+                    <li><span className='txttitle'>Depth : </span>{data?.dimensions?.depth}</li>
+                    </ul><br/>
+                    <p><span className='txttitle'>Waranty :</span> {data?.warrantyInformation}</p>
+                    <p><span className='txttitle'>Shipping :</span> {data?.shippingInformation}</p>
+                    <p><span className='txttitle'>Availability :</span> {data?.availabilityStatus}</p>
+                    <p><span className='txttitle'>Return Policy :</span> {data?.returnPolicy}</p>
+                    <p><span className='txttitle'>Minimum Order Quantity :</span> {data?.minimumOrderQuantity}</p>
+                    <br/>
+                    <div>
+                        <p className='destxt'>Meta Data:</p>
+                        <p><span className='txttitle'>Created At :</span> {data?.meta?.createdAt}</p>
+                        <p><span className='txttitle'>Updated At :</span> {data?.meta?.updatedAt}</p>
+                        <p><span className='txttitle'>Barcode :</span> {data?.meta?.barcode}</p>
+                        <br/>
+                        <p className='txttitle'>Scan here for more details:</p>
+                        <img src={data?.meta?.qrCode} style={{height:'150px', width:'150px', margin:'20px'}} alt='qrcode'/>
+                    </div>
+                </div>
+                
+                <div>
+                    <p className='destxt'>Reviews:</p>
+                    <table>
+                    {
+                        data?.reviews?.map((review)=>
+                        <tr><td>
+                        <div>
+                            <p className='txttitle'>Rating : {review.rating}</p>
+                            <p>Comment : {review.comment}</p>
+                            <p>Date : {review.date}</p>
+                            <p>ReviewerName : {review.reviewerName}</p>
+                            <p>ReviewerMail : {review.reviewerEmail}</p>
+                        </div>
+                        </td>
+                        </tr>)
+                    }
+                    </table>
+                </div>
+
+
+            </div>
+            
+
+            <div>
+                
+            </div>
+
+
+
+            <div className='btns'>
+                <Button variant="contained"  className='deletebtn' onClick={delprod}>Delete</Button>
+                <Button variant="contained" className='updatebtn' onClick={()=>{setDiaOpen(true);setTitle(data?.title);setPrice(data?.price);setCategory(data?.category);setDes(data?.description);
+                    setActualPrice(data?.discountPercentage);setBrand(data?.brand);setRating(data?.rating);setWeight(data?.weight);setMinOrder(data?.minimumOrderQuantity);
+                }}>Update</Button>
             </div>
             
             
-            <Drawer
-                anchor="right"
-                open={opendrawer}
-                onClose={() => setOpenDrawer(false)}
-            >
-                <div style={{ width: '300px', padding: '20px' }}>
-                    <h2>Cart</h2>
-                    {
-                        Object.keys(cartitems).length===0?<p>No items in Cart</p>:
-                        Object.keys(cartitems).map((key)=>(
-                            <div>
-                                <Item title={cartitems[key].title} price={cartitems[key].price} img={cartitems[key].imgval} id={key}/>
-                            </div>
-                        ))
-                    }
-                </div>
-            </Drawer>
+            
+            
+                    <Drawer
+                        anchor="right"
+                        open={opendrawer}
+                        onClose={() => setOpenDrawer(false)}
+                    >
+                        <div style={{ width: '300px', padding: '20px' }}>
+                            <h2>Cart</h2>
+                            {
+                                Object.keys(cartitems).length===0?<p>No items in Cart</p>:
+                                Object.keys(cartitems).map((key)=>(
+                                    <div>
+                                        <Item title={cartitems[key].title} price={cartitems[key].price} img={cartitems[key].imgval} id={key}/>
+                                    </div>
+                                ))
+                            }
+                        </div>
+                    </Drawer>
 
 
             <Dialog open={diaopen} onClose={()=>setDiaOpen(false)}>
@@ -230,11 +270,58 @@ const Product=()=>{
                         value={price}
                         label='Price'
                         onChange={(e)=>setPrice(Number(e.target.value))}/><br/>
+                        <TextField
+                        sx={{width:'400px'}}
+                        margin="dense"
+                        variant="standard"
+                        value={actualprice}
+                        label='Actual Price'
+                        onChange={(e)=>setActualPrice(Number(e.target.value))}
+                        />
                         <p>Description</p>
                         <Textarea 
                         value={des}maxRows={5}
                         onChange={(e)=>setDes(e.target.value)}
                         />
+                        <TextField
+                        sx={{width:'400px'}}
+                        margin="dense"
+                        variant="standard"
+                        inputProps={{ min: 1, max: 5 }} 
+                        value={rating}
+                        label='Rating'
+                        type='Number'
+                        onChange={(e)=>setRating(Number(e.target.value))}
+                        />
+                        <TextField
+                        sx={{width:'400px'}}
+                        margin="dense"
+                        variant="standard"
+                        value={brand}
+                        label="Brand"
+                        onChange={(e)=>setBrand(e.target.value)}
+                        />
+                        <TextField
+                        sx={{width:'400px'}}
+                        margin="dense"
+                        variant="standard"
+                        value={weight}
+                        label="Weight"
+                        type='Number'
+                        onChange={(e)=>setWeight(Number(e.target.value))}
+                        />
+                         <TextField
+                        sx={{width:'400px'}}
+                        margin="dense"
+                        value={minorder}
+                        label="Minimum Order"
+                        variant="standard"
+                        type='Number'
+                        inputProps={{min:1}}
+                        required
+                        onChange={(e)=>setMinOrder(Number(e.target.value))}
+                        />
+                        
                     </form>
                 </DialogContent>
                 <DialogActions>

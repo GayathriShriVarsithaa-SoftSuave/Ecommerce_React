@@ -33,7 +33,7 @@ const Home=()=>{
     const[des,setDes]=useState("");
     const[category,setCategory]=useState("");
     const[price,setPrice]=useState(0.0);
-    const[stock,setStock]=useState("");
+    const[stock,setStock]=useState(0);
     const[brand,setBrand]=useState("");
     const[imgurl,setImgUrl]=useState("");
     const[rating,setRating]=useState(0);
@@ -150,7 +150,7 @@ const Home=()=>{
                         <TextField placeholder='Enter price of the product' type='number' label='Price' sx={{ width: '400px' }} margin="dense" required onChange={(e)=>setPrice(Number(e.target.value))}/><br />
                         <p>Description</p>
                         <Textarea placeholder='Enter description of the product' maxRows={5} required onChange={(e)=>setDes(e.target.value)}/>
-                        <TextField placeholder='Enter product stock' type='number' label='Stock' sx={{ width: '400px' }} margin="dense" required onChange={(e)=>setStock(e.target.value)}/><br />
+                        <TextField placeholder='Enter product stock' type='number' label='Stock' sx={{ width: '400px' }} margin="dense" required onChange={(e)=>setStock(Number(e.target.value))}/><br />
                         <TextField placeholder='Enter brand of the product' label='Brand' sx={{ width: '400px' }} margin="dense" required onChange={(e)=>setBrand(e.target.value)}/><br />
                         <TextField placeholder='Enter image url of the product' type='url' label='Image URL' sx={{ width: '400px' }} margin="dense" required onChange={(e)=>setImgUrl(e.target.value)}/><br />
                         <p>Rating for the Product:</p>
