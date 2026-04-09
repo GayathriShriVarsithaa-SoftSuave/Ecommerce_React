@@ -15,6 +15,8 @@ import {DialogContentText} from '@mui/material';
 import {DialogTitle} from '@mui/material';
 import Textarea from '@mui/joy/Textarea';
 import type {RootState} from '../../app/store'
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 type Props={
     id:string
 }
@@ -135,9 +137,11 @@ const Product=()=>{
     const { cartitems } = useSelector((state: RootState) => state.cartitem);
 
     return(
-        <div>
-            <ArrowBackIcon className='backicon' onClick={backfun}/>
-            <button className='cart' onClick={addcart}>Add to Cart</button>
+        <div className='prod'>
+            <div className='prodhead1'>
+                <ArrowBackIcon className='backicon' onClick={backfun}/>
+                <button className='cart' onClick={addcart}>Add to Cart</button>
+            </div>
             <h1>{title}</h1>
             <p className='destxt'>Description:</p>
             <p className='prodes'>{des}</p>
@@ -156,76 +160,33 @@ const Product=()=>{
                     <p><span className='txttitle'>Category : </span>{category}</p>
                     <p><span className='txttitle'>Rating : </span>{rating}</p>
                     <p><span className='txttitle'>Stock : </span>{data?.stock}</p>
-                    <div>
-                        <p className='txttitle'>Tags:</p>
-                        <ul>
-                        {data?.tags?.map((tag)=>
-                        <li><span>{tag}</span></li>
-                        )} 
-                        </ul>
-                    </div>
                     <p><span className='txttitle'>Brand : </span>{brand}</p>
                     <p><span className='txttitle'>Weight : </span>{weight} g</p>
-                </div>
-                
-            </div>
-
-
-            <div className='body2'>
-
-                <div>
-                    
-                    <p className='destxt'>Dimensions:</p>
-                    <ul>
-                    <li><span className='txttitle'>Width : </span>{data?.dimensions?.width}</li><br />
-                    <li><span className='txttitle'>Height : </span>{data?.dimensions?.height}</li><br/>
-                    <li><span className='txttitle'>Depth : </span>{data?.dimensions?.depth}</li>
-                    </ul><br/>
                     <p><span className='txttitle'>Waranty :</span> {data?.warrantyInformation}</p>
                     <p><span className='txttitle'>Shipping :</span> {data?.shippingInformation}</p>
                     <p><span className='txttitle'>Availability :</span> {data?.availabilityStatus}</p>
                     <p><span className='txttitle'>Return Policy :</span> {data?.returnPolicy}</p>
                     <p><span className='txttitle'>Minimum Order Quantity :</span> {data?.minimumOrderQuantity}</p>
-                    <br/>
-                    <div>
-                        <p className='destxt'>Meta Data:</p>
-                        <p><span className='txttitle'>Created At :</span> {data?.meta?.createdAt}</p>
-                        <p><span className='txttitle'>Updated At :</span> {data?.meta?.updatedAt}</p>
-                        <p><span className='txttitle'>Barcode :</span> {data?.meta?.barcode}</p>
-                        <br/>
-                        <p className='txttitle'>Scan here for more details:</p>
-                        <img src={data?.meta?.qrCode} style={{height:'150px', width:'150px', margin:'20px'}} alt='qrcode'/>
-                    </div>
+                    
                 </div>
                 
-                <div>
-                    <p className='destxt'>Reviews:</p>
-                    <table>
-                    {
-                        data?.reviews?.map((review)=>
-                        <tr><td>
-                        <div>
-                            <p className='txttitle'>Rating : {review.rating}</p>
-                            <p>Comment : {review.comment}</p>
-                            <p>Date : {review.date}</p>
-                            <p>ReviewerName : {review.reviewerName}</p>
-                            <p>ReviewerMail : {review.reviewerEmail}</p>
-                        </div>
-                        </td>
-                        </tr>)
-                    }
-                    </table>
+            </div>
+            <p className='destxt'>Reviews:</p>
+                <div className='body2'>
+                        {
+                            data?.reviews?.map((review)=> 
+                            <div className='rate'>
+                                <p className='txttitle'>Rating : {review.rating}</p>
+                                <p>Comment : {review.comment}</p>
+                                <p>Date : {review.date}</p>
+                                <p>ReviewerName : {review.reviewerName}</p>
+                                <p>ReviewerMail : {review.reviewerEmail}</p>
+                            </div>
+                            )
+                        }
+                        
+                    
                 </div>
-
-
-            </div>
-            
-
-            <div>
-                
-            </div>
-
-
 
             <div className='btns'>
                 <Button variant="contained"  className='deletebtn' onClick={delprod}>Delete</Button>
@@ -258,6 +219,9 @@ const Product=()=>{
 
             <Dialog open={diaopen} onClose={()=>setDiaOpen(false)}>
                 <DialogTitle>Edit product details</DialogTitle>
+                <IconButton onClick={()=>setDiaOpen(false)} sx={{position:'absolute', right: 8,top: 15}}>
+                    <CloseIcon />
+                </IconButton>
                 <DialogContent>
                     <DialogContentText>Edit the product details below</DialogContentText>
                     <form id="editform" onSubmit={updateprod}>
@@ -346,9 +310,14 @@ const Product=()=>{
                         
                     </form>
                 </DialogContent>
-                <DialogActions>
-                    <Button form="editform" type='submit'>Edit</Button>
-                </DialogActions>
+                <div className='buttons'>
+                    <DialogActions>
+                        <Button variant="contained" onClick={()=>setDiaOpen(false)} sx={{backgroundColor:'red', '&:hover':{backgroundColor:'#ff5252',}, '&:active':{backgroundColor:'#ff1744'} }}>Close</Button>
+                    </DialogActions>
+                    <DialogActions>
+                        <Button variant="contained" form="editform" type='submit' sx={{backgroundColor:'#02e7d0', '&:hover':{backgroundColor:'#26a69a',}, '&:active':{backgroundColor:'#0ef0da'} }}>Edit</Button>
+                    </DialogActions>
+                </div>
             </Dialog>
 
 

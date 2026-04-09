@@ -4,10 +4,23 @@
     justify-content: space-around;
     align-items: center;
 }
-
+body,html{
+    background-color: whitesmoke;
+}
+.prodhead1{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
 .prodbody .prodimage img{
     height: 300px;
     width: 300px;
+}
+.prodbody .prodimage .prodimages{
+    margin: auto 20px;
+    background-color: #E8E5E0;
+    border-radius: 30px;
 }
 .prodbody .prodimage .pricebody{
     text-align: center;
@@ -20,6 +33,7 @@
     flex-direction: row;
     justify-content: space-around;
     margin-top: 30px;
+    gap: 20px;
 }
 .destxt{
     font-size: 18px;
@@ -36,7 +50,6 @@
 }
 .cart{
   border-radius: 30px;
-  margin-left:85%;
   background-color: #02e7d0;
   padding: 10px;
   font-size: medium;
@@ -89,9 +102,22 @@
 .btns .updatebtn:active{
     background-color: #0ef0da;  
 }
-
-
-
+.buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.rate{
+    background-color: #E8E5E0;
+    padding: 20px;
+    border-radius: 30px;
+}
+.proddetails p{
+    font-size: 18px;
+}
+.body2 p{
+    font-size: 18px;
+}
 
 @media screen and (max-width:800px){
     .prodbody{
@@ -100,13 +126,21 @@
         align-items: normal;
     }
     .prodbody .prodimage{
-        width: 100%;
+        width: 95%;
     }
     .prodbody .prodimage img{
-        width: 70%;
+        width: 90%;
         margin:auto 20px;
     }
     .body2{
-        flex-direction: column-reverse;
+        flex-direction: column;
+        gap: 30px;
+    }
+}
+
+@media screen and (max-width:950px){
+    .body2{
+        flex-direction: column;
+        gap: 30px;
     }
 }

@@ -1,6 +1,5 @@
 import './Home.css'
 import Thumbnail from '../Thumbnail/Thumbnail'
-import Fab from '@mui/material/Fab';
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Button, Drawer, TextField} from '@mui/material';
@@ -17,6 +16,8 @@ import Textarea from '@mui/joy/Textarea';
 import Radio from '@mui/joy/Radio';
 import RadioGroup from '@mui/joy/RadioGroup';
 import {TablePagination} from '@mui/material';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 const Home=()=>{
     const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -88,32 +89,20 @@ const Home=()=>{
     const { cartitems } = useSelector((state: RootState) => state.cartitem);
     return(
         <div>
-          <div className='homehead'>  
-            <div className='prodhead'>
-                <p>PRODUCTS</p>
-                <ShoppingCartIcon className='carticon' onClick={()=>setOpenDrawer(true)}/>
+          <div className='homehead'> 
+            <div className='homehead2'> 
+                <Button className='addbtn' variant="contained" onClick={()=>setOpenDia(true)}>Add</Button>
+            
+                    <p>PRODUCTS</p>
+                    <div>
+                    <ShoppingCartIcon className='carticon' onClick={()=>setOpenDrawer(true)}/>
+                    </div>
+                
             </div>
+            <div className='btnsearch'> 
+            
+                
 
-            <div className='btnsearch'>
-                <Fab variant='extended' onClick={()=>setOpenDia(true)} sx={
-                    {
-                        position:'fixed',
-                        top:'4%',
-                        left:'5%',
-                        backgroundColor:'#02e7d0',
-                        color:'black',
-                        '&:hover': {
-                            backgroundColor: ' #26a69a',
-                            cursor:'pointer'},
-                            '&:active': {
-                        backgroundColor:'#02e7d0',
-
-                            }
-                    }
-                    
-                }>
-                Add
-                </Fab>
 
                 <TextField id="prodsearch" placeholder="Search Products.." variant="outlined" size='small' className='searchbar'
                 sx={
@@ -137,7 +126,7 @@ const Home=()=>{
                     )
                 }}/>
             </div>
-            </div>
+        </div>
             <Drawer
                 anchor="right"
                 open={opendrawer}
@@ -162,6 +151,11 @@ const Home=()=>{
 
             <Dialog open={opendia} onClose={()=>setOpenDia(false)}>
                 <DialogTitle>Add a Product</DialogTitle>
+                <IconButton onClick={()=>setOpenDia(false)} sx={{position: 'absolute',
+            right: 8,
+            top: 15}}>
+                    <CloseIcon  />
+                </IconButton>
                 <DialogContentText sx={{textIndent:25}}>Enter details for the product to add</DialogContentText>
                 <DialogContent>
                             
@@ -185,9 +179,15 @@ const Home=()=>{
                         </RadioGroup>
                     </form>
                 </DialogContent>
+                <div className='buttons'>
                 <DialogActions>
-                    <Button form='addform' type='submit'>Add Product</Button>
+                    <Button variant="contained" onClick={()=>setOpenDia(false)} sx={{backgroundColor:'red', '&:hover':{backgroundColor:'#ff5252',}, '&:active':{backgroundColor:'#ff1744'} }}>Close</Button>
                 </DialogActions>
+                <DialogActions>
+
+                    <Button variant="contained" form='addform' type='submit' sx={{backgroundColor:'#02e7d0', '&:hover':{backgroundColor:'#26a69a',}, '&:active':{backgroundColor:'#0ef0da'}}}>Add Product</Button>
+                </DialogActions>
+                </div>
             </Dialog>
             
 
@@ -201,6 +201,7 @@ const Home=()=>{
             <div className='page'>
                 <TablePagination
                     sx={{
+                        width:'100%',
                         display: 'flex',
                         justifyContent: 'center'
                     }}
