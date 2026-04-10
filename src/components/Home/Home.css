@@ -15,9 +15,9 @@
 .homehead{
   position: sticky;
   top:0;
+  z-index:1;
   background-color: whitesmoke;
   padding-bottom: 10px;
-  overflow-y: 20%;
 }
 
 .homehead2 p {
@@ -58,7 +58,7 @@
     background-color: #0ef0da;  
 }
 .page{
-  position: sticky;
+  position: fixed;
   bottom: 0;
   background-color:whitesmoke;
   width: 100%;

@@ -38,7 +38,11 @@ const Home=()=>{
     const fetchdata=()=>{
         fetch('https://dummyjson.com/products')
         .then(res=>res.json())
-        .then(data=>setData(data.products))
+        .then(data=>{
+            const localprod=Object.keys(localStorage).map((key)=>{
+                return JSON.parse(localStorage.getItem(key) || '{}')
+            })
+            setData([...data.products,...localprod])})
         .catch(err=>alert(err))
     }
     const [data,setData]=useState([]);
@@ -65,7 +69,15 @@ const Home=()=>{
         }
         fetch(`https://dummyjson.com/products/search?q=${searchtxt}`)
         .then(res=>res.json())
-        .then((data)=>{setData(data.products);setPage(0)})
+        .then((data)=>{
+            const localprod=Object.keys(localStorage).map((keys)=>{
+                const pro=localStorage.getItem(keys);
+                return JSON.parse(pro);
+            })
+            .filter((pro) =>
+                    pro.title.toLowerCase().includes(searchtxt.toLowerCase())
+                );
+            setData([...data.products,...localprod]);setPage(0)})
         .catch((e)=>alert(e.message))
     }
 
@@ -90,11 +102,26 @@ const Home=()=>{
                 rating:rating
             })
         })
+        .then(res=>res.json())
+        .then((data)=>{localStorage.setItem(genid(),JSON.stringify(data)),fetchdata()})
         .then(()=>alert("Product added!"))
         .then(()=>setOpenDia(false))
         .catch((e)=>alert(e.message))
     }
-
+    function genid():string{
+        const id = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
+        /[xy]/g,
+        function (c) {
+          const r = (Math.random() * 16) | 0;
+          const v = c === "x" ? r : (r & 0x3) | 0x8;
+          return v.toString(16);
+        },
+      );
+      return(id);
+    }
+    useEffect(()=>{
+        searchData(searchtxt)
+    },[searchtxt]);
     useEffect(()=>{
         fetchdata();
     },[])
@@ -117,7 +144,7 @@ const Home=()=>{
 
 
                 <TextField id="prodsearch" placeholder="Search Products.." variant="outlined" size='small' className='searchbar'
-                onChange={(e)=>{setSearchTxt(e.target.value);searchData(searchtxt)}}
+                onChange={(e)=>{setSearchTxt(e.target.value)}}
                 
                 sx={
                     {
@@ -155,7 +182,6 @@ const Home=()=>{
                                 <Item title={cartitems[key].title} price={cartitems[key].price} img={cartitems[key].imgval} id={key}/>
                             </div>
                         ))
-                        
                     }
                     {
                         Object.keys(cartitems).length!=0 && (<Button variant="contained" color="secondary" sx={{ml:'10px'}}>Proceed to Buy</Button>)
@@ -203,14 +229,16 @@ const Home=()=>{
                 </DialogActions>
                 </div>
             </Dialog>
-            
-
-
 
             <div className='homeitems'>
-                {data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item)=>
-                    <Thumbnail id={item?.id} imgval={item?.thumbnail} title={item?.title} price={"$"+item?.price} des={item?.description}/>
-                )}
+                {
+                    data.length!==0?
+                    (data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item)=>
+                        <Thumbnail id={item?.id} imgval={item?.thumbnail} title={item?.title} price={"$"+item?.price} des={item?.description}/>
+                    ))
+                    :
+                    (<p style={{textAlign:'center', fontSize:'20px'}}>No Products Found</p>)
+                }
             </div>
             <div className='page'>
                 <TablePagination
