@@ -61,7 +61,7 @@ interface ProductData{
 }
 const Product=()=>{
     const dispatch=useDispatch();
-    const {id}=useParams<Props>();
+    const { id } = useParams<{ id: string }>();
     const [data,setData]=useState<ProductData | null>(null);
     const fetchdata=()=>{
         fetch(`https://dummyjson.com/products/${id}`)
@@ -98,6 +98,7 @@ const Product=()=>{
     };
     const [diaopen,setDiaOpen]=useState(false)
     const addcart=()=>{
+        if (!id) return;
         setOpenDrawer(true);
         dispatch(addCartItem({id,item:{title:data?.title || '',price:data?.price || 0,imgval:data?.images?.[0] || ''}}));
     }

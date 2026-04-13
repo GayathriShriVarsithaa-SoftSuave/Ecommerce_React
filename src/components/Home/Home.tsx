@@ -18,6 +18,13 @@ import RadioGroup from '@mui/joy/RadioGroup';
 import {TablePagination} from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
+type Product = {
+    id: string | number;
+    title: string;
+    thumbnail: string;
+    price: number;
+    description: string;
+};
 const Home=()=>{
     const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -45,7 +52,7 @@ const Home=()=>{
             setData([...data.products,...localprod])})
         .catch(err=>alert(err))
     }
-    const [data,setData]=useState([]);
+    const [data, setData] = useState<Product[]>([]);
     const [searchtxt,setSearchTxt]=useState('');
 
     const [opendrawer,setOpenDrawer]=useState(false);
@@ -71,8 +78,8 @@ const Home=()=>{
         .then(res=>res.json())
         .then((data)=>{
             const localprod=Object.keys(localStorage).map((keys)=>{
-                const pro=localStorage.getItem(keys);
-                return JSON.parse(pro);
+               const pro = localStorage.getItem(keys);
+                return pro ? JSON.parse(pro) : null;
             })
             .filter((pro) =>
                     pro.title.toLowerCase().includes(searchtxt.toLowerCase())
