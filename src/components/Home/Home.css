@@ -1,10 +1,94 @@
-.homeitems{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+.homeitems {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  gap: 30px;
+  width: 95%;
 }
-@media screen and (max-width: 646px) {
-    .homeitems{
-       display: block;
-    }
+.homehead2{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+  align-items: center;
+  padding-right: 10px;
+}
+.homehead{
+  position: sticky;
+  top:0;
+  z-index:1;
+  background-color: whitesmoke;
+  padding-bottom: 10px;
+}
+.notfounddiv {
+  grid-column: 1 / -1; 
+    width: 100%;
+    min-height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.notfound {
+    font-size: 24px;
+    font-weight: 500;
+    text-align: center;
+}
+.homehead2 p {
+  font-size: 30px;
+  font-weight: 600;
+  width: 90%;
+  text-align: center;
+}
+.btnsearch .searchbar {
+  background-color: rgb(255, 255, 255);
+  width: 80%;
+  border-radius: 30px;
+}
+.btnsearch {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-bottom: 20px;
+  border: 0px;
+}
+.homehead .addbtn {
+    border-radius: 30px;
+    background-color: #02e7d0;
+    color: black;
+    padding: 10px;
+    font-size: medium;
+    font-weight: 500;
+    border: 0px;
+    cursor: pointer;
+    width: 100px;
+    height: 50px;
+}
+.addbtn:hover {
+  cursor: pointer;
+  background-color: #26a69a;
+}
+.addbtn:active{
+    background-color: #0ef0da;  
+}
+.page{
+  position: fixed;
+  bottom: 0;
+  background-color:whitesmoke;
+  width: 100%;
+  margin-bottom: 0;
+  border: 0;
+}
+.page .MuiTablePagination-root {
+    width: 100%;
+    margin-bottom: 0;
+}
+.buttons{
+  display:flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+@media screen and (max-width: 800px) {
+  .homeitems {
+    grid-template-columns: auto auto;
+  }
 }

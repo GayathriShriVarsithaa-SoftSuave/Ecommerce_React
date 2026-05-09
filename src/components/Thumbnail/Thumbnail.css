@@ -1,18 +1,26 @@
-.thumbnailbody{
+.thumbbody{
     height: auto;
-    width: 18%;
-    border-radius: 10%;
-    background-color: white;
+    width: 100%;
+    border-radius: 30px;
+    background-color: #E8E5E0;
     margin: 10px;
 }
+.thumbnailbody{
+    height: auto;
+    width: 100%;
+    border-radius: 30px;
+    background-color: #E8E5E0;
+}
 .thumbnailbody:hover{
-   transform: scale(1.04);
    cursor: pointer;
 }
 .thumbimg{
     height:250px;
     width: 100%;
     border-radius: 5%;
+}
+.thumbimg:hover{
+    transform: scale(1.05);
 }
 .titleprice{
     display: flex;
@@ -21,7 +29,7 @@
     padding: 10px;
 }
 .titleprice .thumbprice{
-    color: blue
+    color: #F97316;
 }
 .titleprice .thumbtitle{
     font-weight: 600;
@@ -30,13 +38,26 @@
     padding: 10px;
 }
 .addtocart{
-    display: block;
-    background-color: blue;
-    color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 5px;
-    margin: 10px auto
+  border-radius: 10px;
+  background-color: #02e7d0;
+  font-size: medium;
+  font-weight: 500;
+  border: 0px;
+  display: block;
+  border: none;
+  padding: 10px;
+  margin-left: auto;
+  margin-right:auto;
+  margin-bottom: 10px;
+}
+
+.addtocart:hover {
+  cursor: pointer;
+  background-color: #26a69a;
+  transform: scale(1.05);
+}
+.addtocart:active{
+    background-color: #0ef0da;  
 }
 @media screen and (max-width: 791px) {
     .titleprice{

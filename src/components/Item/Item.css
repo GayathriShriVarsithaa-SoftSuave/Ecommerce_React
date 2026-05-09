@@ -1,0 +1,32 @@
+.itembody{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border: 1px solid #ccc;
+    justify-content: space-around;
+    border-radius: 5px;
+    margin: 10px;
+    width: 85%;
+    height: 400px;
+}
+.itembody .itemimg{
+    width: 200px;
+    height:200px;
+}
+.itembody .delitem{
+    border-radius: 30px;
+    background-color: #ff1744;
+    padding: 10px;
+    font-size: medium;
+    font-weight: 500;
+    color: white;
+    border: 0px;
+    cursor: pointer;
+}
+.itembody .delitem:hover {
+    background-color: #ff5252;
+}
+.itembody .delitem:active{
+    background-color: #ff1744;
+}
